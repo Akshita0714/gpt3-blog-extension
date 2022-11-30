@@ -38,8 +38,8 @@ const generate = async (prompt) => {
     body: JSON.stringify({
       model: 'text-davinci-003',
       prompt: prompt,
-      max_tokens: 1250,
-      temperature: 0.7,
+      max_tokens: 3000,
+      temperature: 0.85,
     }),
   });
 	
@@ -55,7 +55,7 @@ const generateCompletionAction = async (info) => {
     const { selectionText } = info;
     const basePromptPrefix =
 		`
-		Write me a detailed table of contents for a blog post with the title below.
+		Write me a detailed table of contents for a scholarship essay with the title below.
 
 		Title:
 		`;
@@ -64,13 +64,13 @@ const generateCompletionAction = async (info) => {
  
 	const secondPrompt = 
 	  `
-	  Take the table of contents and title of the blog post below and generate a blog post written in thwe style of Paul Graham. Make it feel like a story. Don't just list the points. Go deep into each one. Explain why.
+	  Take the table of contents and title of the scholarship essay below and generate a scholarship essay. Make it feel like a story. Don't just list the points. Go deep into each one. Explain why.
 
 	  Title: ${selectionText}
 
 	  Table of Contents: ${baseCompletion.text}
 
-	  Blog Post:
+	  Scholarship Essay:
 	  `;
 		
     const secondPromptCompletion = await generate(secondPrompt);
@@ -87,7 +87,7 @@ const generateCompletionAction = async (info) => {
 
 chrome.contextMenus.create({
   id: 'context-run',
-  title: 'Generate blog post',
+  title: 'Generate essay',
   contexts: ['selection'],
 });
 
